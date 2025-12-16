@@ -16,19 +16,15 @@ def extract_raw_data():
 def transform_data(df):
     logger.info("Начинаю трансформацию...")
 
-    # приводим дату к формату datetime
     df["Order Date"] = pd.to_datetime(df["Order Date"], dayfirst=True, errors="coerce")  
     df = df.dropna(subset=["Order Date"])  
 
-    # удаляем строки без ключевых полей
     df = df.dropna(subset=["Order ID", "Sales"])
 
-    # новые поля
     df["Year"] = df["Order Date"].dt.year
     df["Month"] = df["Order Date"].dt.month
     df["Quarter"] = df["Order Date"].dt.quarter
 
-    # выручка по заказу
     df["Revenue_per_order"] = df.groupby("Order ID")["Sales"].transform("sum")
 
     logger.info(f"Трансформация завершена, строк: {len(df)}")
