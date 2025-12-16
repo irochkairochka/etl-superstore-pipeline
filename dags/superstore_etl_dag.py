@@ -16,7 +16,7 @@ with DAG(
     dag_id="superstore_etl_dag",
     default_args=default_args,
     description="ETL пайплайн для Superstore: CSV → SQLite",
-    schedule_interval="0 2 * * *",  # каждый день в 02:00
+    schedule_interval="0 2 * * *",
     start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["superstore", "etl", "sqlite"],
